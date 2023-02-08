@@ -39,7 +39,7 @@ function addColumns(cityPop){
     		} else {
     			citySize = 'Large';
     		};
-
+			// 
 			row.insertAdjacntHTML = '<td' + citySize + '</td>';
     	};
     });
