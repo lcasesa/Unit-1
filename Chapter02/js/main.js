@@ -126,7 +126,7 @@ function debugCallback(response){
 async function debugAjax(){
 	
 	var response = await fetch("data/MegaCities.geojson");
-	var myData = await response.json();
+	var myData = response.json();
 	debugCallback(myData);
 };
 
