@@ -58,7 +58,9 @@ function addColumns(cityPop){
 	//select all column rows
 	var rows = document.querySelectorAll("tr")
 	//loop to add a new column to each row
-	document.querySelectorAll("tr").forEach(function(row,i){
+	document
+		.querySelectorAll("tr")
+		.forEach(function(row,i){
 		//for first row in the table, add the column header
 		if (i == 0){
     		//create new header element and add it to the table
@@ -88,7 +90,9 @@ function addEvents(){
 	table = document.querySelector("table");
 
 	//add mouseover event
-	document.querySelector("table").addEventListener("mouseover", function(){
+	document
+		.querySelector("table")
+		.addEventListener("mouseover", function(){
 		var color = "rgb(";
 		//generate random color
 		for (var i=0; i<3; i++){
@@ -115,18 +119,34 @@ function addEvents(){
 	table.addEventListener("click", clickme)
 };
 
-//call the initialize function when the document has loaded
+// call the initialize function when the document has loaded
 document.addEventListener('DOMContentLoaded',initialize)
 
 
+/**
+ * function inserts GeoJSON in instances
+ * @param {*} response 
+ */ 
 function debugCallback(response){
-	document.querySelector("#mydiv").insertAdjacentHTML('beforeend', '<br>GeoJSON data:<br>' + JSON.stringify(response))
+	document
+		.querySelector("#mydiv")
+		.insertAdjacentHTML('beforeend', '<br>GeoJSON data:<br>' + JSON.stringify(response))
 };
 
+// asynchronous function calls to fetch, stores the result, and invokes debugCallback
 async function debugAjax(){
-	
+	// wait for promise to return from fetch and save the variable
 	var response = await fetch("data/MegaCities.geojson");
-	var myData = response.json();
+	// parse the response as json format
+	var myData = await response.json();
+	// invoke debugCall back (defined above)
 	debugCallback(myData);
 };
 
+function addData(){
+	fetch("data/MegaCities.geojson")
+		.then(function(response){
+			return response.json();
+		})
+		.then(debugCallback)
+}
